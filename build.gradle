@@ -1,0 +1,38 @@
+group 'in.saeakgec'
+version '1.0'
+
+buildscript {
+    dependencies {
+        classpath group: 'de.dynamicfiles.projects.gradle.plugins', name: 'javafx-gradle-plugin', version: '8.7.0'
+    }
+    repositories {
+        mavenLocal()
+        mavenCentral()
+
+    }
+}
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+
+    compile 'com.lynden:GMapsFX:2.12.0'
+
+}
+
+apply plugin: 'javafx-gradle-plugin'
+
+jfx {
+    // Minimal requirement for jfxJar-task
+    mainClass = 'in.saeakgec.supra.App'
+
+    // Minimal requirement for jfxNative-task
+    vendor = 'saeakgec'
+}
