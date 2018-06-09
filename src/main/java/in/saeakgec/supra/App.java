@@ -9,11 +9,11 @@ import javafx.stage.Stage;
 public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/in/saeakgec/supra/view/Auth.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/in/saeakgec/supra/view/AddRace.fxml"));
 
         Scene scene = new Scene(root);
 //        scene.getStylesheets().add("/app/helloworld//styles/Styles.css");
-
+        scene.getStylesheets().add("bootstrapfx.css");
         stage.setTitle("Directions API Example");
         stage.setScene(scene);
         stage.show();
