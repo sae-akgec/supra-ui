@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-
-<?import org.kordamp.bootstrapfx.scene.layout.Panel?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import org.kordamp.bootstrapfx.scene.layout.Panel?>
+
+<?import java.net.URL?>
 <AnchorPane prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="in.saeakgec.supra.controller.AddFlagController">
-   <children>
+   <stylesheets>
+       <URL value="@../css/AddFlag.css" />
+   </stylesheets>
+    <children>
        <Panel prefHeight="700.0" prefWidth="600.0" styleClass="panel-info">
            <heading>
                <Label alignment="CENTER" styleClass="h3" text="Click on Flag to drop" />
@@ -35,90 +36,115 @@
                    <children>
                        <HBox prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0">
                            <children>
-                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" minWidth="200" minHeight="200">
                                    <children>
-                                       <Label prefHeight="40.0" prefWidth="79.0" text="BLACK FLAG" />
-                                       <ImageView fitHeight="160.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                       <Label prefHeight="40.0" prefWidth="100.0" text="BLACK FLAG" />
+                                       <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/flags/flag-black.png" />
+                                 </image></ImageView>
                                    </children>
                                </VBox>
                            </children>
                        </HBox>
                        <HBox prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                            <children>
-                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" minWidth="200" minHeight="200">
                                    <children>
                                        <Label prefHeight="40.0" prefWidth="176.0" text="BLACK FLAG + ORANGE DOT " />
-                                       <ImageView fitHeight="160.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                       <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/flags/flag-black-dot.png" />
+                                 </image></ImageView>
                                    </children>
                                </VBox>
                            </children>
                        </HBox>
                        <HBox prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                            <children>
-                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" minWidth="200" minHeight="200">
                                    <children>
                                        <Label prefHeight="40.0" prefWidth="83.0" text=" BLUE FLAG " />
-                                       <ImageView fitHeight="160.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                       <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/flags/flag-blue.png" />
+                                 </image></ImageView>
                                    </children>
                                </VBox>
                            </children>
                        </HBox>
                        <HBox prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                            <children>
-                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" minWidth="200" minHeight="200">
                                    <children>
                                        <Label prefHeight="40.0" prefWidth="110.0" text="CHECKER FLAG" />
-                                       <ImageView fitHeight="160.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                       <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" styleClass="flag">
+                                 <image>
+                                    <Image url="@../img/flags/flag-checked.png" />
+                                 </image></ImageView>
                                    </children>
                                </VBox>
                            </children>
                        </HBox>
                        <HBox prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <children>
-                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" minWidth="200" minHeight="200">
                                    <children>
                                        <Label prefHeight="40.0" prefWidth="183.0" text="RED  YELLOW STRIPED" />
-                                       <ImageView fitHeight="160.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                       <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
                                    </children>
                                </VBox>
                            </children>
                        </HBox>
                        <HBox prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <children>
-                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" minWidth="200" minHeight="200">
                                    <children>
                                        <Label prefHeight="40.0" prefWidth="91.0" text="RED FLAG " />
-                                       <ImageView fitHeight="160.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                       <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/flags/flag-red.png" />
+                                 </image></ImageView>
                                    </children>
                                </VBox>
                            </children>
                        </HBox>
                        <HBox prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <children>
-                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" minWidth="200" minHeight="200">
                                    <children>
                                        <Label prefHeight="40.0" prefWidth="110.0" text="GREEN FLAG" />
-                                       <ImageView fitHeight="160.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                       <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/flags/flag-green.png" />
+                                 </image></ImageView>
                                    </children>
                                </VBox>
                            </children>
                        </HBox>
                        <HBox prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                            <children>
-                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" minWidth="200" minHeight="200">
                                    <children>
                                        <Label prefHeight="40.0" prefWidth="103.0" text="WHITE FLAG" />
-                                       <ImageView fitHeight="160.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                       <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                           <image>
+                                               <Image url="@../img/flags/flag-white.png" />
+                                           </image>
+                                       </ImageView>
                                    </children>
                                </VBox>
                            </children>
                        </HBox>
                        <HBox prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                            <children>
-                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" minWidth="200" minHeight="200">
                                    <children>
                                        <Label prefHeight="40.0" prefWidth="120.0" text=" YELLOW FLAG " />
-                                       <ImageView fitHeight="160.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                       <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/flags/flag-yellow.png" />
+                                 </image></ImageView>
                                    </children>
                                </VBox>
                            </children>
@@ -129,4 +155,3 @@
        </Panel>
    </children>
 </AnchorPane>
-
