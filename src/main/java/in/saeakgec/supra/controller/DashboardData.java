@@ -22,6 +22,12 @@ public class DashboardData {
     @FXML
     private Label date;
 
+    @FXML
+    private Label to;
+
+    @FXML
+    private Label from;
+
     public DashboardData() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/in/saeakgec/supra/view/DashboardItem.fxml"));
         fxmlLoader.setController(this);
@@ -35,10 +41,12 @@ public class DashboardData {
         }
     }
 
-    public void setInfo(String nameStr, String dateStr)
+    public void setInfo(String nameStr, String dateStr, String toStr, String fromStr)
     {
         name.setText(nameStr);
         date.setText(dateStr);
+        to.setText(toStr);
+        from.setText(fromStr);
     }
 
     public void setIndicaton(String... classes){

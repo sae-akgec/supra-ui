@@ -6,12 +6,14 @@ import in.saeakgec.supra.service.DashboardService;
 import in.saeakgec.supra.util.HeaderRequestInterceptor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
@@ -35,6 +37,9 @@ public class DashboardController implements Initializable {
     @FXML
     private ListView completedListView;
 
+    @FXML
+    private Button addRace;
+
     ObservableList<Race> pendingObservableList = FXCollections.observableArrayList();
     ObservableList<Race> completedObservableList = FXCollections.observableArrayList();
 
@@ -47,6 +52,11 @@ public class DashboardController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         dashboardService = new DashboardService();
+        setRaces();
+
+    }
+
+    public void setRaces(){
         List<Race> races = dashboardService.getAdminRace();
         List<Race> pendingRaces = getPendingView(races);
         List<Race> completedRaces = getCompletedView(races);
@@ -70,7 +80,7 @@ public class DashboardController implements Initializable {
 
                         if (item != null){
                             DashboardData data = new DashboardData();
-                            data.setInfo(item.getName(), item.getTime().toString());
+                            data.setInfo(item.getName(),item.getTime().toString(), item.getAddressTo(), item.getAddressFrom());
                             data.setIndicaton( "btn-warning", "btn-xs");
                             setGraphic(data.getBox());
                         }else {
@@ -113,7 +123,7 @@ public class DashboardController implements Initializable {
 
                         if (item != null){
                             DashboardData data = new DashboardData();
-                            data.setInfo(item.getName(), item.getTime().toString());
+                            data.setInfo(item.getName(),item.getTime().toString(), item.getAddressTo(), item.getAddressFrom());
                             data.setIndicaton( "btn-info", "btn-xs");
                             setGraphic(data.getBox());
                         }else {
@@ -153,11 +163,19 @@ public class DashboardController implements Initializable {
         return completedRaces;
     }
 
+    public void handleOnClick(ActionEvent event){
+        Race race = showPopupWindow();
+        if (race != null){
+            boolean isAdded = dashboardService.addAdminRace(race);
+            System.out.println(isAdded);
+        }
+        setRaces();
+    }
+
     private Race showPopupWindow() {
-        Race race;
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("Popup.fxml"));
+        loader.setLocation(getClass().getResource("/in/saeakgec/supra/view/AddRace.fxml"));
         // initializing the controller
         AddRaceController popupController = new AddRaceController();
         loader.setController(popupController);
@@ -165,6 +183,7 @@ public class DashboardController implements Initializable {
         try {
             layout = loader.load();
             Scene scene = new Scene(layout);
+            scene.getStylesheets().add("bootstrapfx.css");
             // this is the popup stage
             Stage popupStage = new Stage();
             // Giving the popup controller access to the popup stage (to allow the controller to close the stage)

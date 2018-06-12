@@ -18,7 +18,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" text="Add Race">
+                  <Button mnemonicParsing="false" text="Add Race" fx:id="addRace" onAction="#handleOnClick">
                      <font>
                         <Font size="18.0" />
                      </font>

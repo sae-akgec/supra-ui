@@ -5,19 +5,29 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.FlowPane?>
 
-<FlowPane fx:id="fPane" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<FlowPane fx:id="fPane" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button  fx:id="indicator" maxWidth="20">
          <FlowPane.margin>
             <Insets left="20.0" right="10.0" />
          </FlowPane.margin>
       </Button>
-      <Label maxWidth="130" text="Bravado Motorsport" fx:id="name">
+      <Label maxWidth="130" minWidth="130" text="Bravado Motorsport" fx:id="name">
          <FlowPane.margin>
             <Insets left="10.0" right="10.0" />
          </FlowPane.margin>
       </Label>
-      <Label maxWidth="100" text="2018-18-1997" fx:id="date">
+      <Label maxWidth="130" minWidth="130" text="Bravado Motorsport" fx:id="to">
+         <FlowPane.margin>
+            <Insets left="10.0" right="10.0" />
+         </FlowPane.margin>
+      </Label>
+      <Label maxWidth="130" minWidth="130" text="Bravado Motorsport" fx:id="from">
+         <FlowPane.margin>
+            <Insets left="10.0" right="10.0" />
+         </FlowPane.margin>
+      </Label>
+      <Label maxWidth="100" minWidth="100" text="2018-18-1997" fx:id="date">
          <FlowPane.margin>
             <Insets left="20.0" right="10.0" />
          </FlowPane.margin>

@@ -5,6 +5,7 @@ import in.saeakgec.supra.model.Race;
 import in.saeakgec.supra.util.Constants;
 import in.saeakgec.supra.util.HeaderRequestInterceptor;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -37,6 +38,17 @@ public class DashboardService {
         Race[] forNow = restTemplate.getForObject(url, Race[].class);
         List<Race> races = new ArrayList<Race>(Arrays.asList(forNow));
         return races;
+    }
+
+    public boolean addAdminRace(Race race){
+        String url = DOMAIN + "/api/v1/races/admin";
+        try {
+            restTemplate.postForObject(url, race, Race.class);
+            return true;
+
+        }catch (HttpClientErrorException exception){
+            return false;
+        }
     }
 
 
