@@ -35,7 +35,6 @@ public class MyStompSessionHandler extends StompSessionHandlerAdapter {
     @Override
     public void handleFrame(StompHeaders headers, Object payload) {
 //        log.info("Received: {}stompEndpointRegistry.addEndpoint("/BO/socket").setAllowedOrigins("*").withSockJS();", ((Greeting) payload).getContent());
-        System.out.println(((GreenFlag) payload).getGreenFlag());
     }
 
     @Override
