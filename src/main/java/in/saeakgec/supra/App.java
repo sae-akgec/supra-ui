@@ -5,11 +5,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Lazy;
 
+@Lazy
+@SpringBootApplication
 public class App extends Application {
+
+    private ConfigurableApplicationContext applicationContext;
+
+
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/in/saeakgec/supra/view/AddFlag.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/in/saeakgec/supra/view/Race.fxml"));
 
         Scene scene = new Scene(root);
 //        scene.getStylesheets().add("/app/helloworld//styles/Styles.css");
@@ -19,7 +29,23 @@ public class App extends Application {
         stage.show();
     }
 
-    public static void main(String args[]){
+    public static void main(String args[]) {
         launch(args);
     }
+
+    @Override
+    public void init() throws Exception {
+        SpringApplication app = new SpringApplication(App.class);
+        app.setWebEnvironment(false);
+        applicationContext = app.run();
+        applicationContext.getAutowireCapableBeanFactory().autowireBean(this);
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        applicationContext.close();
+
+    }
+
 }

@@ -41,12 +41,12 @@
                      </children></HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <TextField promptText="Username" styleClass="form" />
-                        <PasswordField promptText="Password" styleClass="form" />
+                        <TextField promptText="Username" styleClass="form" fx:id="authUsername" />
+                        <PasswordField promptText="Password" styleClass="form" fx:id="authPassword"/>
                      </children></HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button mnemonicParsing="false" styleClass="btn, btn-info, btn-block" text="Log in" />
+                        <Button mnemonicParsing="false" onAction="#handleButtonAction" styleClass="btn, btn-info, btn-block" text="Log in" fx:id="authSubmit" />
                      </children></HBox>
                </children>
             </VBox>
