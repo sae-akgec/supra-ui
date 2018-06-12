@@ -37,7 +37,7 @@
                                  <Label alignment="TOP_CENTER" styleClass="h3" text="Race Pending" />
                              </heading>
                              <body>
-                                 <ListView styleClass="panel-body" prefWidth="345" />
+                                 <ListView styleClass="panel-body" prefWidth="345" fx:id="pendingListView"/>
                              </body>
                          </Panel>
                      </children>
@@ -46,7 +46,7 @@
                      <children>
                         <Panel prefHeight="345.0" prefWidth="798.0" styleClass="panel-success">
                             <heading>
-                                <Label alignment="TOP_CENTER" styleClass="h3" text="Race Completed" />
+                                <Label alignment="TOP_CENTER" styleClass="h3" text="Race Completed" fx:id="completedListView"/>
                             </heading>
                             <body>
                                 <ListView styleClass="panel-body" prefWidth="345" />
