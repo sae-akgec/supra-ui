@@ -40,7 +40,7 @@ public class RaceController implements Initializable {
 
         map.addMouseEventHandler(UIEventType.click, (GMapMouseEvent event) -> {
             LatLong latLong = event.getLatLong();
-            String path = MarkerImageFactory.createMarkerImage(baseDir() + "flags/flag-yellow.png", "png");
+            String path = MarkerImageFactory.createMarkerImage(baseDir() + "flags/flag-red.png", "png");
             System.out.println(path);
             path = path.replace("(", "");
             path = path.replace(")", "");

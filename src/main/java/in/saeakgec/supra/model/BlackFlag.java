@@ -2,20 +2,44 @@ package in.saeakgec.supra.model;
 
 public class BlackFlag {
 
-    private String blackFlag;
-
     public BlackFlag() {
     }
 
-    public BlackFlag(String blackFlag) {
-        this.blackFlag = blackFlag;
+    public BlackFlag(String src, float lat, float lon) {
+        this.src = src;
+        this.lat = lat;
+        this.lon = lon;
     }
 
-    public String getBlackFlag() {
-        return blackFlag;
+    private String src;
+
+    private float lat;
+
+    private float lon;
+
+    public float getLat() {
+        return lat;
     }
 
-    public void setBlackFlag(String blackFlag) {
-        this.blackFlag = blackFlag;
+    public void setLat(float lat) {
+        this.lat = lat;
     }
+
+    public float getLon() {
+        return lon;
+    }
+
+    public void setLon(float lon) {
+        this.lon = lon;
+    }
+
+    public String getSrc() {
+        return src;
+    }
+
+    public void setSrc(String src) {
+        this.src = "/flags/flag-black.png";
+    }
+
+
 }

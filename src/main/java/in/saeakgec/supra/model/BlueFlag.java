@@ -1,14 +1,17 @@
 package in.saeakgec.supra.model;
 
-public class BlackOrangeFlag {
+public class BlueFlag {
 
-    public BlackOrangeFlag() { }
-
-    public BlackOrangeFlag(String src, float lat, float lon) {
+    public BlueFlag(String src, float lat, float lon) {
         this.src = src;
         this.lat = lat;
         this.lon = lon;
     }
+
+    public BlueFlag() {
+    }
+
+    private String src;
 
     private float lat;
 
@@ -35,9 +38,6 @@ public class BlackOrangeFlag {
     }
 
     public void setSrc(String src) {
-        this.src = "/flags/flag-black-dot.png";
+        this.src = src;
     }
-
-    private String src;
-
 }

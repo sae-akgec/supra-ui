@@ -2,15 +2,15 @@ package in.saeakgec.supra.model;
 
 public class IndividualFlags {
 
-    private Boolean blackFlag;
+    private Boolean blackFlag = false;
 
-    private Boolean blackOrangeFlag;
+    private Boolean blackOrangeFlag = false;
 
-    private Boolean blueFlag;
+    private Boolean blueFlag = false;
 
-    private Boolean checkerFlag;
+    private Boolean checkerFlag = false;
 
-    private Boolean whiteFlag;
+    private Boolean whiteFlag = false;
 
     public IndividualFlags() {
     }

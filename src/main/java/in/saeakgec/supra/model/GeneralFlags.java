@@ -12,14 +12,17 @@ public class GeneralFlags {
 
     private List<RedYellowFlag> redYellowFlags;
 
+    private List<BlueFlag> blueFlags;
+
     public GeneralFlags() {
     }
 
-    public GeneralFlags(List<GreenFlag> greenFlags, List<RedFlag> redFlags, List<YellowFlag> yellowFlags, List<RedYellowFlag> redYellowFlags) {
+    public GeneralFlags(List<GreenFlag> greenFlags, List<RedFlag> redFlags, List<YellowFlag> yellowFlags, List<RedYellowFlag> redYellowFlags, List<BlueFlag> blueFlags) {
         this.greenFlags = greenFlags;
         this.redFlags = redFlags;
         this.yellowFlags = yellowFlags;
         this.redYellowFlags = redYellowFlags;
+        this.blueFlags = blueFlags;
     }
 
     public List<GreenFlag> getGreenFlags() {
@@ -52,5 +55,13 @@ public class GeneralFlags {
 
     public void setRedYellowFlags(List<RedYellowFlag> redYellowFlags) {
         this.redYellowFlags = redYellowFlags;
+    }
+
+    public List<BlueFlag> getBlueFlags() {
+        return blueFlags;
+    }
+
+    public void setBlueFlags(List<BlueFlag> blueFlags) {
+        this.blueFlags = blueFlags;
     }
 }

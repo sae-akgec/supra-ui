@@ -2,20 +2,43 @@ package in.saeakgec.supra.model;
 
 public class YellowFlag {
 
-    private String yellowFlag;
 
     public YellowFlag() {
     }
 
-    public YellowFlag(String yellowFlag) {
-        this.yellowFlag = yellowFlag;
+    public YellowFlag(String src, float lat, float lon) {
+        this.src = src;
+        this.lat = lat;
+        this.lon = lon;
     }
 
-    public String getYellowFlag() {
-        return yellowFlag;
+    private float lat;
+
+    private float lon;
+
+    public float getLat() {
+        return lat;
     }
 
-    public void setYellowFlag(String yellowFlag) {
-        this.yellowFlag = yellowFlag;
+    public void setLat(float lat) {
+        this.lat = lat;
     }
+
+    public float getLon() {
+        return lon;
+    }
+
+    public void setLon(float lon) {
+        this.lon = lon;
+    }
+
+    public String getSrc() {
+        return src;
+    }
+
+    public void setSrc(String src) {
+        this.src = "/flags/flag-yellow.png";
+    }
+
+    private String src;
 }
