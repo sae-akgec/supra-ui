@@ -46,10 +46,10 @@
                      <children>
                         <Panel prefHeight="345.0" prefWidth="798.0" styleClass="panel-success">
                             <heading>
-                                <Label alignment="TOP_CENTER" styleClass="h3" text="Race Completed" fx:id="completedListView"/>
+                                <Label alignment="TOP_CENTER" styleClass="h3" text="Race Completed"/>
                             </heading>
                             <body>
-                                <ListView styleClass="panel-body" prefWidth="345" />
+                                <ListView styleClass="panel-body" prefWidth="345" fx:id="completedListView"/>
                             </body>
                         </Panel>
                      </children>
