@@ -8,13 +8,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +37,12 @@ public class DashboardController implements Initializable {
 
     ObservableList<Race> pendingObservableList = FXCollections.observableArrayList();
     ObservableList<Race> completedObservableList = FXCollections.observableArrayList();
+
+    protected App main;
+
+    public void setMainApp(App main) {
+        this.main = main;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -75,16 +87,11 @@ public class DashboardController implements Initializable {
             }
         });
 
-        pendingListView.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        pendingListView.setOnMouseClicked(arg0 -> {
 
-            @Override
-            public void handle(MouseEvent arg0) {
-
-                ObservableList<Race> clickedRaces = pendingListView.getSelectionModel().getSelectedItems();
-                Race race = clickedRaces.get(0);
-                System.out.println(race.getName());
-            }
-
+            ObservableList<Race> clickedRaces = pendingListView.getSelectionModel().getSelectedItems();
+            Race race = clickedRaces.get(0);
+            System.out.println(race.getName());
         });
 
 
@@ -144,5 +151,33 @@ public class DashboardController implements Initializable {
         }
 
         return completedRaces;
+    }
+
+    private Race showPopupWindow() {
+        Race race;
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("Popup.fxml"));
+        // initializing the controller
+        AddRaceController popupController = new AddRaceController();
+        loader.setController(popupController);
+        Parent layout;
+        try {
+            layout = loader.load();
+            Scene scene = new Scene(layout);
+            // this is the popup stage
+            Stage popupStage = new Stage();
+            // Giving the popup controller access to the popup stage (to allow the controller to close the stage)
+            popupController.setStage(popupStage);
+            if(this.main!=null) {
+                popupStage.initOwner(main.getPrimaryStage());
+            }
+            popupStage.initModality(Modality.WINDOW_MODAL);
+            popupStage.setScene(scene);
+            popupStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return popupController.getResult();
     }
 }

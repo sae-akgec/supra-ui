@@ -10,7 +10,7 @@
 <?import org.kordamp.bootstrapfx.scene.layout.Panel?>
 
 <?import javafx.scene.control.Button?>
-<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="in.saeakgec.supra.controller.AddRaceController">
+<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" >
    <children>
       <Panel prefHeight="400.0" prefWidth="500.0" styleClass="panel-info">
          <heading>
@@ -35,43 +35,14 @@
                <children>
                   <HBox alignment="CENTER" maxHeight="40" prefHeight="40.0" prefWidth="300.0" GridPane.columnIndex="1">
                      <children>
-                        <Label alignment="CENTER" prefHeight="26.0" prefWidth="100.0" text="Username" />
-                        <TextField prefWidth="200.0" promptText="Username" />
+                        <Label alignment="CENTER" prefHeight="26.0" prefWidth="100.0" text="nameTextView" />
+                        <TextField prefWidth="200.0" promptText="Username" fx:id="name"/>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" maxHeight="40" prefHeight="40.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="26.0" prefWidth="100.0" text="Username" />
-                        <TextField prefWidth="200.0" promptText="Username" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" maxHeight="40" prefHeight="40.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="26.0" prefWidth="100.0" text="Username" />
-                        <TextField prefWidth="200.0" promptText="Username" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" maxHeight="40" prefHeight="40.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="26.0" prefWidth="100.0" text="Username" />
-                        <TextField prefWidth="200.0" promptText="Username" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" maxHeight="40" prefHeight="40.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="26.0" prefWidth="100.0" text="Username" />
-                        <TextField prefWidth="200.0" promptText="Username" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" maxHeight="40" prefHeight="40.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="26.0" prefWidth="100.0" text="Username" />
-                        <TextField prefWidth="200.0" promptText="Username" />
-                     </children>
-                  </HBox>
+
                   <HBox alignment="CENTER" maxHeight="40" prefHeight="40.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <children>
-                        <Button mnemonicParsing="false" text="Submit" styleClass="btn, btn-info" />
+                        <Button mnemonicParsing="false" text="Submit" styleClass="btn, btn-info" fx:id="addRace" />
                      </children>
                   </HBox>
                </children>

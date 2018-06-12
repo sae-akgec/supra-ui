@@ -15,10 +15,13 @@ import org.springframework.context.annotation.Lazy;
 public class App extends Application {
 
     private ConfigurableApplicationContext applicationContext;
+    private Stage primaryStage;
 
 
     @Override
     public void start(Stage stage) throws Exception {
+
+        primaryStage = stage;
         Parent root = FXMLLoader.load(getClass().getResource("/in/saeakgec/supra/view/Auth.fxml"));
 
         Scene scene = new Scene(root);
@@ -46,6 +49,10 @@ public class App extends Application {
         super.stop();
         applicationContext.close();
 
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
     }
 
 }
