@@ -40,10 +40,28 @@ public class DashboardService {
         return races;
     }
 
+    public Race getRace(long id){
+
+        String url = DOMAIN + "/api/v1/races/admin/" + id;
+        Race updated = restTemplate.getForObject(url, Race.class);
+        return updated;
+    }
+
     public boolean addAdminRace(Race race){
         String url = DOMAIN + "/api/v1/races/admin";
         try {
             restTemplate.postForObject(url, race, Race.class);
+            return true;
+
+        }catch (HttpClientErrorException exception){
+            return false;
+        }
+    }
+
+    public boolean updateAdminRace(Race race){
+        String url = DOMAIN + "/api/v1/races/admin/update/" + race.getId();
+        try {
+            restTemplate.getForObject(url, Object.class);
             return true;
 
         }catch (HttpClientErrorException exception){

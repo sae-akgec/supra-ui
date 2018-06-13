@@ -67,7 +67,7 @@ public class AddRaceController implements Initializable, MapComponentInitialized
             System.out.println("hello");
             race.setName(name.getText());
             race.setAddressTo(toText.getText());
-            race.setAddressFrom(fromText.toString());
+            race.setAddressFrom(fromText.getText());
             closeStage();
 
         });
@@ -92,7 +92,7 @@ public class AddRaceController implements Initializable, MapComponentInitialized
     public void mapInitialized() {
         MapOptions options = new MapOptions();
 
-        options.center(new LatLong(47.606189, -122.335842))
+        options.center(new LatLong(28.3505, 77.5351))
                 .zoomControl(true)
                 .zoom(15)
                 .overviewMapControl(false)

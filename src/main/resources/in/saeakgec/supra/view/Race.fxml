@@ -50,12 +50,14 @@
                            <children>
                               <VBox prefHeight="751.0" prefWidth="527.0">
                                  <children>
-                                    <GoogleMapView fx:id="googleMapView" prefHeight="600.0" prefWidth="527.0" />
+                                     <AnchorPane prefHeight="600.0" prefWidth="527.0" fx:id="mapPane">
+                                         <children>
+                                             <GoogleMapView fx:id="googleMapView" prefHeight="600.0" prefWidth="527.0" />
+                                         </children>
+                                     </AnchorPane>
                                     <HBox alignment="CENTER" prefHeight="167.0" prefWidth="527.0">
                                        <children>
                                           <Button mnemonicParsing="false" prefWidth="150" styleClass="btn,btn-lg, btn-success, btn-race" text="Start" />
-                                          <Button mnemonicParsing="false" prefWidth="200" styleClass="btn, btn-lg, btn-warning, btn-race" text="Activate Map" />
-                                          <Button mnemonicParsing="false" prefWidth="150" styleClass="btn, btn-lg, btn-danger, btn-race" text="Flags" />
                                        </children>
                                     </HBox>
                                  </children>

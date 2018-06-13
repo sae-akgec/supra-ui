@@ -37,20 +37,20 @@
                     <children>
                        <HBox alignment="CENTER" maxHeight="40" prefHeight="40.0" prefWidth="300.0" GridPane.columnIndex="1">
                           <children>
-                             <Label alignment="CENTER" prefHeight="26.0" prefWidth="100.0" text="Username:" />
-                             <TextField fx:id="name" prefWidth="200.0" promptText="Username" />
+                             <Label alignment="CENTER" prefHeight="26.0" prefWidth="100.0" text="Title:" />
+                             <TextField fx:id="name" prefWidth="200.0" promptText="Title" />
                           </children>
                        </HBox>
                        <HBox alignment="CENTER" maxHeight="40" prefHeight="40.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                           <children>
                              <Label alignment="CENTER" prefHeight="26.0" prefWidth="100.0" text="From: " />
-                             <TextField fx:id="fromText" prefWidth="200.0" promptText="Username" />
+                             <TextField fx:id="fromText" prefWidth="200.0" promptText="From" />
                           </children>
                        </HBox>
                        <HBox alignment="CENTER" maxHeight="40" prefHeight="40.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                           <children>
                              <Label alignment="CENTER" prefHeight="26.0" prefWidth="100.0" text="To: " />
-                             <TextField fx:id="toText" prefWidth="200.0" promptText="Username" />
+                             <TextField fx:id="toText" prefWidth="200.0" promptText="to" />
                           </children>
                        </HBox>
 

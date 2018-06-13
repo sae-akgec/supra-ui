@@ -2,6 +2,7 @@ package in.saeakgec.supra.controller;
 
 import in.saeakgec.supra.App;
 import in.saeakgec.supra.model.Race;
+import in.saeakgec.supra.scene.RaceScene;
 import in.saeakgec.supra.service.DashboardService;
 import in.saeakgec.supra.util.HeaderRequestInterceptor;
 import javafx.collections.FXCollections;
@@ -11,12 +12,15 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.fxml.JavaFXBuilderFactory;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -60,7 +64,7 @@ public class DashboardController implements Initializable {
         List<Race> races = dashboardService.getAdminRace();
         List<Race> pendingRaces = getPendingView(races);
         List<Race> completedRaces = getCompletedView(races);
-        setPendingListView(pendingRaces);
+        setPendingListView(races);
         setCompletedListView(races);
     }
 
@@ -101,7 +105,14 @@ public class DashboardController implements Initializable {
 
             ObservableList<Race> clickedRaces = pendingListView.getSelectionModel().getSelectedItems();
             Race race = clickedRaces.get(0);
-            System.out.println(race.getName());
+            dashboardService.updateAdminRace(race);
+            Race newRace = dashboardService.getRace(race.getId());
+            System.out.println(newRace.getName());
+            try {
+                openRaceScreen(arg0,newRace);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
 
 
@@ -198,5 +209,26 @@ public class DashboardController implements Initializable {
             e.printStackTrace();
         }
         return popupController.getResult();
+    }
+
+    private void openRaceScreen(MouseEvent event, Race race) throws IOException {
+        Stage stage= (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(new Pane()));
+
+        URL location1 = RaceController.class.getResource("/in/saeakgec/supra/view/Race.fxml");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(location1);
+        fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
+        Parent root = (Parent) fxmlLoader.load(location1.openStream());
+
+        RaceController ctrl1 = (RaceController) fxmlLoader.getController();
+        ctrl1.setRace(race);
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("bootstrapfx.css");
+        stage.setTitle("Dashboard");
+
+        stage.setScene(scene);
+        stage.show();
     }
 }
