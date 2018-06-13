@@ -4,7 +4,9 @@ import in.saeakgec.supra.App;
 import in.saeakgec.supra.model.Race;
 import in.saeakgec.supra.util.Constants;
 import in.saeakgec.supra.util.HeaderRequestInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
@@ -17,6 +19,9 @@ public class DashboardService {
     List<ClientHttpRequestInterceptor> interceptors;
     RestTemplate restTemplate;
     String DOMAIN;
+
+    @Autowired
+    SimpMessagingTemplate simpMessagingTemplate;
 
     public DashboardService(){
         interceptors = new ArrayList<ClientHttpRequestInterceptor>();

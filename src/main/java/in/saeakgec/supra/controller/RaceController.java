@@ -1,10 +1,7 @@
 package in.saeakgec.supra.controller;
 
-import com.fasterxml.jackson.databind.type.MapType;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
-import com.lynden.gmapsfx.javascript.event.GMapMouseEvent;
-import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
 import com.lynden.gmapsfx.service.directions.DirectionStatus;
 import com.lynden.gmapsfx.service.directions.DirectionsRenderer;
@@ -13,9 +10,11 @@ import com.lynden.gmapsfx.service.directions.DirectionsResult;
 import com.lynden.gmapsfx.service.directions.DirectionsService;
 import com.lynden.gmapsfx.service.directions.DirectionsServiceCallback;
 import com.lynden.gmapsfx.service.directions.TravelModes;
-import com.lynden.gmapsfx.util.MarkerImageFactory;
 import in.saeakgec.supra.App;
 import in.saeakgec.supra.model.Race;
+import in.saeakgec.supra.util.Constants;
+import in.saeakgec.supra.util.HeaderRequestInterceptor;
+import in.saeakgec.supra.websocket.MyStompSessionHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,12 +26,27 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.messaging.converter.MappingJackson2MessageConverter;
+import org.springframework.messaging.simp.stomp.StompSession;
+import org.springframework.messaging.simp.stomp.StompSessionHandler;
+import org.springframework.web.socket.WebSocketHttpHeaders;
+import org.springframework.web.socket.client.WebSocketClient;
+import org.springframework.web.socket.client.standard.StandardWebSocketClient;
+import org.springframework.web.socket.messaging.WebSocketStompClient;
+import org.springframework.web.socket.sockjs.client.SockJsClient;
+import org.springframework.web.socket.sockjs.client.Transport;
+import org.springframework.web.socket.sockjs.client.WebSocketTransport;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
+import java.util.prefs.Preferences;
 
 public class RaceController implements Initializable,MapComponentInitializedListener, DirectionsServiceCallback {
 
@@ -50,6 +64,11 @@ public class RaceController implements Initializable,MapComponentInitializedList
 
     protected App main;
 
+//    ocket
+    WebSocketHttpHeaders headers;
+    String DOMAIN;
+
+    StompSession stompSession;
 
     public void setMainApp(App main) {
         this.main = main;
@@ -60,11 +79,29 @@ public class RaceController implements Initializable,MapComponentInitializedList
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         googleMapView.addMapInializedListener(this);
+        headers = new WebSocketHttpHeaders();
+        headers.add("Authorization", getToken());
+        Constants constants = new Constants();
+        DOMAIN = constants.Domain;
+
+        try {
+            stompSession = connectToWebsocketServer(DOMAIN + "/socket");
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         mapPane.setOnMouseClicked(event -> {
             String color = showPopupWindow();
             String code = address(color);
             showMarker(event, code);
         });
+    }
+    public  String getToken(){
+        Preferences prefs = Preferences.userNodeForPackage(App.class);
+        return prefs.get("token",null);
     }
 
 
@@ -171,4 +208,22 @@ public class RaceController implements Initializable,MapComponentInitializedList
         }
         return popupController.getColorMain();
     }
+
+    // Socket code
+
+    private StompSession connectToWebsocketServer(String url) throws ExecutionException, InterruptedException, IOException {
+        WebSocketClient simpleWebSocketClient = new StandardWebSocketClient();
+        List<Transport> transports = new ArrayList(1);
+        transports.add(new WebSocketTransport(simpleWebSocketClient));
+
+        SockJsClient sockJsClient = new SockJsClient(transports);
+        WebSocketStompClient stompClient = new WebSocketStompClient(sockJsClient);
+        stompClient.setMessageConverter(new MappingJackson2MessageConverter());
+
+        StompSessionHandler sessionHandler = new MyStompSessionHandler();
+        StompSession session = stompClient.connect(url, sessionHandler,headers).get();
+        return session;
+    }
+
+
 }

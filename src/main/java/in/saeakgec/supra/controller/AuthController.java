@@ -61,15 +61,6 @@ public class AuthController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         authService = new AuthService();
-//        try {
-//            StompSession session = connectToWebsocketServer("http://localhost:8080/socket","JavaFx-client");
-//        } catch (ExecutionException e) {
-//            e.printStackTrace();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 
     @FXML
@@ -111,19 +102,7 @@ public class AuthController implements Initializable {
         stage.show();
     }
 
-    private StompSession connectToWebsocketServer(String url, String sender) throws ExecutionException, InterruptedException, IOException {
-        WebSocketClient simpleWebSocketClient = new StandardWebSocketClient();
-        List<Transport> transports = new ArrayList(1);
-        transports.add(new WebSocketTransport(simpleWebSocketClient));
 
-        SockJsClient sockJsClient = new SockJsClient(transports);
-        WebSocketStompClient stompClient = new WebSocketStompClient(sockJsClient);
-        stompClient.setMessageConverter(new MappingJackson2MessageConverter());
-
-        StompSessionHandler sessionHandler = new MyStompSessionHandler();
-        StompSession session = stompClient.connect(url, sessionHandler).get();
-        return session;
-    }
 
     private boolean authenticate(String username, String password){
         User user = new User(username, password);
