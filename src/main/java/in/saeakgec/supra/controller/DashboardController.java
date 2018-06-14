@@ -2,7 +2,6 @@ package in.saeakgec.supra.controller;
 
 import in.saeakgec.supra.App;
 import in.saeakgec.supra.model.Race;
-import in.saeakgec.supra.scene.RaceScene;
 import in.saeakgec.supra.service.DashboardService;
 import in.saeakgec.supra.util.HeaderRequestInterceptor;
 import javafx.collections.FXCollections;

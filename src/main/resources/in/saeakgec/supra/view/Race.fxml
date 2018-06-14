@@ -50,9 +50,10 @@
                            <children>
                               <VBox prefHeight="751.0" prefWidth="527.0">
                                  <children>
-                                     <AnchorPane prefHeight="600.0" prefWidth="527.0" fx:id="mapPane">
+                                     <AnchorPane prefHeight="600.0" prefWidth="527.0">
                                          <children>
-                                             <GoogleMapView fx:id="googleMapView" prefHeight="600.0" prefWidth="527.0" />
+                                             <GoogleMapView fx:id="googleMapView" prefHeight="480.0" prefWidth="530.0" />
+                                          <AnchorPane prefHeight="480.0" prefWidth="527.0" style="-fx-background-color: transparent" fx:id="mapPane" />
                                          </children>
                                      </AnchorPane>
                                     <HBox alignment="CENTER" prefHeight="167.0" prefWidth="527.0">

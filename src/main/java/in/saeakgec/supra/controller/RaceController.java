@@ -11,10 +11,9 @@ import com.lynden.gmapsfx.service.directions.DirectionsService;
 import com.lynden.gmapsfx.service.directions.DirectionsServiceCallback;
 import com.lynden.gmapsfx.service.directions.TravelModes;
 import in.saeakgec.supra.App;
-import in.saeakgec.supra.model.Race;
+import in.saeakgec.supra.model.*;
 import in.saeakgec.supra.util.Constants;
-import in.saeakgec.supra.util.HeaderRequestInterceptor;
-import in.saeakgec.supra.websocket.MyStompSessionHandler;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,10 +25,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
-import org.springframework.messaging.simp.stomp.StompSession;
-import org.springframework.messaging.simp.stomp.StompSessionHandler;
+import org.springframework.messaging.simp.stomp.*;
 import org.springframework.web.socket.WebSocketHttpHeaders;
 import org.springframework.web.socket.client.WebSocketClient;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
@@ -40,6 +37,7 @@ import org.springframework.web.socket.sockjs.client.WebSocketTransport;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -55,6 +53,7 @@ public class RaceController implements Initializable,MapComponentInitializedList
     protected DirectionsService directionsService;
     protected DirectionsPane directionsPane;
     protected DirectionsRenderer directionsRenderer = null;
+    private GeneralFlags generalFlags;
 
     @FXML
     AnchorPane mapPane;
@@ -69,6 +68,7 @@ public class RaceController implements Initializable,MapComponentInitializedList
     String DOMAIN;
 
     StompSession stompSession;
+    StompSessionHandler sessionHandler;
 
     public void setMainApp(App main) {
         this.main = main;
@@ -83,6 +83,19 @@ public class RaceController implements Initializable,MapComponentInitializedList
         headers.add("Authorization", getToken());
         Constants constants = new Constants();
         DOMAIN = constants.Domain;
+        generalFlags = new GeneralFlags();
+
+        List<RedFlag> redFlags = new ArrayList<>();
+        List<GreenFlag> greenFlags = new ArrayList<>();
+        List<BlueFlag> blueFlags = new ArrayList<>();
+        List<RedYellowFlag> redYellowFlags = new ArrayList<>();
+        List<YellowFlag> yellowFlags = new ArrayList<>();
+
+        generalFlags.setRedFlags(redFlags);
+        generalFlags.setGreenFlags(greenFlags);
+        generalFlags.setBlueFlags(blueFlags);
+        generalFlags.setRedYellowFlags(redYellowFlags);
+        generalFlags.setYellowFlags(yellowFlags);
 
         try {
             stompSession = connectToWebsocketServer(DOMAIN + "/socket");
@@ -95,8 +108,8 @@ public class RaceController implements Initializable,MapComponentInitializedList
         }
         mapPane.setOnMouseClicked(event -> {
             String color = showPopupWindow();
-            String code = address(color);
-            showMarker(event, code);
+            address(color, event);
+//            showMarker(event, code);
         });
     }
     public  String getToken(){
@@ -105,38 +118,77 @@ public class RaceController implements Initializable,MapComponentInitializedList
     }
 
 
-    public void showMarker(MouseEvent event, String code) {
+    public void showMarker(float x, float y, String code) {
         System.out.println(code);
-        System.out.println(event.getX() + " --- "+ event.getY());
         ImageView imageView = new ImageView();
-        imageView.setX(event.getX());
-        imageView.setY(event.getY());
-        File file = new File("src/main/resources/in/saeakgec/supra/img/flags/" + code);
+        imageView.setX(x);
+        imageView.setY(y);
+        File file = new File("src/main/resources/in/saeakgec/supra/img" + code);
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
 
         mapPane.getChildren().add(imageView);
     }
 
-    public String address(String color){
+    public void address(String color, MouseEvent event){
         String code="";
         if(color.equals("blue")){
-            code = "flag-blue.png";
+            code = "/flags/flag-blue.png";
+            BlueFlag blueFlag = new BlueFlag();
+            blueFlag.setSrc("/flags/flag-blue.png");
+            blueFlag.setLat((float) event.getX());
+            blueFlag.setLon((float) event.getY());
+
+            List<BlueFlag> blueFlags = generalFlags.getBlueFlags();
+            blueFlags.add(blueFlag);
+            generalFlags.setBlueFlags(blueFlags);
         }
         if(color.equals("red-yellow")){
-            code = "flag-red-yellow.png";
+            code = "/flags/flag-red-yellow.png";
+            RedYellowFlag redYellowFlag = new RedYellowFlag();
+            redYellowFlag.setSrc(code);
+            redYellowFlag.setLon((float) event.getY());
+            redYellowFlag.setLon((float) event.getX());
+
+            List<RedYellowFlag> blueFlags = generalFlags.getRedYellowFlags();
+            blueFlags.add(redYellowFlag);
+            generalFlags.setRedYellowFlags(blueFlags);
         }
         if(color.equals("red")){
-            code = "flag-red.png";
+            code = "/flags/flag-red.png";
+            RedFlag redFlag = new RedFlag();
+            redFlag.setSrc(code);
+            redFlag.setLat((float) event.getX());
+            redFlag.setLon((float) event.getY());
+
+            List<RedFlag> blueFlags = generalFlags.getRedFlags();
+            blueFlags.add(redFlag);
+            generalFlags.setRedFlags(blueFlags);
         }
         if(color.equals("green")){
-            code = "flag-green.png";
+            code = "/flags/flag-green.png";
+            GreenFlag greenFlag = new GreenFlag();
+            greenFlag.setSrc(code);
+            greenFlag.setLat((float) event.getX());
+            greenFlag.setLon((float) event.getY());
+
+            List<GreenFlag> blueFlags = generalFlags.getGreenFlags();
+            blueFlags.add(greenFlag);
+            generalFlags.setGreenFlags(blueFlags);
         }
         if(color.equals("yellow")){
-            code = "flag-yellow.png";
+            code = "/flags/flag-yellow.png";
+            YellowFlag yellowFlag = new YellowFlag();
+            yellowFlag.setSrc(code);
+            yellowFlag.setLat((float) event.getX());
+            yellowFlag.setLon((float) event.getY());
+
+            List<YellowFlag> blueFlags = generalFlags.getYellowFlags();
+            blueFlags.add(yellowFlag);
+            generalFlags.setYellowFlags(blueFlags);
         }
 
-        return code;
+        stompSession.send("/server/flags", generalFlags);
     }
 
     private String baseDir() {
@@ -220,10 +272,79 @@ public class RaceController implements Initializable,MapComponentInitializedList
         WebSocketStompClient stompClient = new WebSocketStompClient(sockJsClient);
         stompClient.setMessageConverter(new MappingJackson2MessageConverter());
 
-        StompSessionHandler sessionHandler = new MyStompSessionHandler();
+        sessionHandler = new MyStompSessionHandler();
         StompSession session = stompClient.connect(url, sessionHandler,headers).get();
         return session;
     }
 
+    class MyStompSessionHandler extends StompSessionHandlerAdapter {
+
+
+        public MyStompSessionHandler() {
+
+        }
+
+        @Override
+        public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
+            session.subscribe("/server/flags", this);
+        }
+
+        @Override
+        public void handleException(StompSession session, StompCommand command, StompHeaders headers, byte[] payload, Throwable exception) {
+            exception.printStackTrace();
+        }
+
+        @Override
+        public Type getPayloadType(StompHeaders headers) {
+            return GeneralFlags.class;
+        }
+
+        @Override
+        public void handleFrame(StompHeaders headers, Object payload) {
+            GeneralFlags generalFlags1= (GeneralFlags) payload;
+            generalFlags = generalFlags1;
+            Platform.runLater(new Runnable(){
+
+                @Override
+                public void run() {
+                    mapPane.getChildren().clear();
+                    List<RedFlag> redFlags = generalFlags1.getRedFlags();
+                    List<GreenFlag> greenFlags = generalFlags1.getGreenFlags();
+                    List<YellowFlag> yellowFlags = generalFlags1.getYellowFlags();
+                    List<RedYellowFlag> redYellowFlags = generalFlags1.getRedYellowFlags();
+                    List<BlueFlag> blueFlags = generalFlags1.getBlueFlags();
+
+                    for (RedFlag redFlag:redFlags){
+                        showMarker(redFlag.getLat(), redFlag.getLon(), redFlag.getSrc());
+                    }
+                    for (GreenFlag greenFlag:greenFlags){
+                        showMarker(greenFlag.getLat(), greenFlag.getLon(), greenFlag.getSrc());
+                    }
+                    for (YellowFlag yellowFlag:yellowFlags){
+                        showMarker(yellowFlag.getLat(), yellowFlag.getLon(), yellowFlag.getSrc());
+                    }
+                    for (RedYellowFlag redYellowFlag:redYellowFlags){
+                        showMarker(redYellowFlag.getLat(), redYellowFlag.getLon(), redYellowFlag.getSrc());
+                    }
+                    for (BlueFlag blueFlag:blueFlags){
+                        showMarker(blueFlag.getLat(), blueFlag.getLon(), blueFlag.getSrc());
+                    }
+                }
+            });
+
+            
+//            mapPane.getChildren().addAll(googleMapView)
+
+
+        }
+
+        @Override
+        public void handleTransportError(StompSession session, Throwable exception) {
+            exception.printStackTrace();
+            super.handleTransportError(session, exception);
+        }
+
+
+    }
 
 }
